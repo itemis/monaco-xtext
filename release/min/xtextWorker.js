@@ -1,0 +1,7 @@
+/*!-----------------------------------------------------------------------------
+ * Copyright (c) Microsoft Corporation. All rights reserved.
+ * monaco-go version: 0.0.1(10663473bffdcd65c6b3b4156f547e1be27124b1)
+ * Released under the MIT license
+ * https://github.com/mbana/monaco-go/blob/master/LICENSE.md
+ *-----------------------------------------------------------------------------*/
+define("vs/language/xtext/xtextWorker",["require","exports"],function(n,t){function o(n,t){return new r(n,t)}var e=monaco.Promise,r=function(){function n(n,t){this._ctx=n,this._languageId="mydsl"}return n.prototype.doValidation=function(n){return new e(function(n,t){})},n.prototype.doComplete=function(n,t){return new e(function(n,t){})},n.prototype.doHover=function(n,t){return new e(function(n,t){})},n.prototype.findDefinition=function(n,t){return new e(function(n,t){})},n.prototype.findReferences=function(n,t){return new e(function(n,t){})},n.prototype.findDocumentHighlights=function(n,t){return new e(function(n,t){})},n.prototype.findDocumentSymbols=function(n){return new e(function(n,t){})},n.prototype.doCodeActions=function(n,t,o){return new e(function(n,t){})},n.prototype.findColorSymbols=function(n){return new e(function(n,t){})},n.prototype.doRename=function(n,t,o){return new e(function(n,t){})},n}();t.XtextWorker=r,t.create=o});

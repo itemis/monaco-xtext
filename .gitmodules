@@ -1,0 +1,12 @@
+[submodule "jsonrpc2"]
+	path = jsonrpc2
+	url = https://github.com/mbana/jsonrpc2.git
+[submodule "vscode-languageserver-node"]
+	path = vscode-languageserver-node
+	url = https://github.com/mbana/vscode-languageserver-node.git
+[submodule "submodules/vscode-languageserver-node"]
+	path = submodules/vscode-languageserver-node
+	url = https://github.com/mbana/vscode-languageserver-node.git
+[submodule "submodules/jsonrpc2"]
+	path = submodules/jsonrpc2
+	url = https://github.com/mbana/jsonrpc2.git

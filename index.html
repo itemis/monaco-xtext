@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+    <link rel="stylesheet" data-name="vs/editor/editor.main" href="/node_modules/monaco-editor-core/dev/vs/editor/editor.main.css">
+</head>
+<body>
+
+<div id="container" style="width:800px;height:600px;border:1px solid grey"></div>
+<!--<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>-->
+<script>
+	var require = {
+		paths: {
+			'vs/language/mydsl': '/out',
+			'vs': '/node_modules/monaco-editor-core/dev/vs',
+            'vs/language/language-client': '/out/language-client',
+            'lodash': '/node_modules/lodash/lodash',
+            'vscode': '/out/fillers/vscode',
+            'vscode-languageserver-types': '/node_modules/vscode-languageserver-types/lib/main',
+		    'vscode-jsonrpc': '/node_modules/vscode-languageclient/node_modules/vscode-jsonrpc/lib/main',
+
+            'vscode-languageclient': '/node_modules/vscode-languageclient/lib/main',
+            'vs/basic-languages': '/node_modules/monaco-languages/release'
+
+		}
+	};
+</script>
+<script src="/node_modules/monaco-editor-core/dev/vs/loader.js"></script>
+<script src="/node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
+<script src="/node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
+<script src="monaco-editor-fillers.js"></script>
+<script>
+    require([],function(){});
+    require(['vs/language/mydsl/monaco.contribution'], function() {
+        var editor = monaco.editor.create(document.getElementById('container'), {
+            value: [
+                'Hello foo !',
+                'Hello Bar from foo!'
+            ].join('\n'),
+            language: 'mydsl'
+        });
+    });
+</script>
+</body>
+</html>

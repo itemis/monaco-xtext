@@ -1,0 +1,48 @@
+{
+  "name": "monaco-xtext",
+  "version": "0.0.1",
+  "description": "Enable Xtext for Monaco",
+  "author": "Itemis AG",
+  "license": "EPL-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itemis/monaco-xtext"
+  },
+  "scripts": {
+    "compile": "./node_modules/.bin/gulp release",
+    "watch": "./node_modules/.bin/gulp watch",
+    "prepublish": "./node_modules/.bin/gulp release",
+    "lint": "./node_modules/.bin/tslint --config ./ --project ./",
+    "serve": "./node_modules/.bin/http-server -c-1 --utc",
+    "test": "npm run compile; npm run serve & sleep 2; open http://127.0.0.1:8080/index_mocha.html"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/lodash": "^4.14.43",
+    "@types/mocha": "^2.2.33",
+    "chai": "^3.5.0",
+    "event-stream": "^3.3.2",
+    "gulp": "^3.9.1",
+    "gulp-requirejs": "^0.1.3",
+    "gulp-typescript": "^3.1.3",
+    "gulp-uglify": "^1.5.3",
+    "http-server": "^0.9.0",
+    "merge-stream": "^1.0.0",
+    "mocha": "^3.2.0",
+    "monaco-editor-core": "^0.7.0",
+    "monaco-languages": "^0.6.1",
+    "object-assign": "^4.1.0",
+    "rimraf": "^2.5.2",
+    "tslint": "^4.0.1",
+    "typescript": "2.0.10"
+  },
+  "dependencies": {
+    "bower": "^1.8.0",
+    "gulp-tsb": "^2.0.3",
+    "http-server": "^0.9.0",
+    "lodash": "^4.17.2",
+    "vscode-languageclient": "^3.0.1-alpha.12",
+    "vscode-languageserver-types": "^3.0.1-alpha.8",
+    "vscode-nls": "^2.0.2"
+  }
+}
