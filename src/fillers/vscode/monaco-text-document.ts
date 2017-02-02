@@ -254,7 +254,7 @@ export class TextDocument {
 	getText(range?: Range): string {
 		let model = this.model;
 		let value = model.getValue();
-		let rawText = model.toRawText();
+		let rawText = model.getValue();
 
 		return value;
 	}

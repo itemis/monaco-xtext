@@ -195,7 +195,7 @@ export class MonacoLanguages {
 
 				// hack: create models - otherwise you can't jump to the definition
 				let definition = <Thenable<monaco.languages.Definition>>provider.provideDefinition(model, vscodePosition, token);
-				return definition.then((definition) => {
+				return definition.then((definition):Promise<monaco.languages.Definition> => {
 					if (definition instanceof Array) {
 						return Promise.all(definition.map((location) => {
 							return MonacoLanguages.tryLoadModel(location.uri).then((model) => {
@@ -225,7 +225,7 @@ export class MonacoLanguages {
 
 				// hack: create models - otherwise you can't jump to the definition
 				let references = <Thenable<MLocation[]>>provider.provideReferences(model, vscodePosition, context, token);
-				return references.then((references) => {
+				return references.then((references):Promise<MLocation[]> => {
 					if (references instanceof Array) {
 						return Promise.all(references.map((location) => {
 							return MonacoLanguages.tryLoadModel(location.uri).then((model) => {
@@ -236,9 +236,9 @@ export class MonacoLanguages {
 						});
 					} else {
 						let location = <MLocation>references;
-						return MonacoLanguages.tryLoadModel(location.uri).then((model) => {
+						//return MonacoLanguages.tryLoadModel(location.uri).then((model) => {
 							return references;
-						});
+						//});
 					}
 				});
 			}
