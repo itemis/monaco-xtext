@@ -14,7 +14,7 @@ import {
 } from 'vscode-languageserver-types';
 
 import {
-	TextDocument, TextLine,
+	TextDocument, TextLine, Position,
 	TextDocumentContentChangeEvent, TextDocumentChangeEvent,
 } from './monaco-text-document';
 import * as vscodeToMonaco from './vscode-to-monaco-utils';
@@ -186,14 +186,31 @@ export class MonacoWorkspace {
 	}
 
 	private _toTextDocumentContentChangeEvent(e: monaco.editor.IModelContentChangedEvent2): TextDocumentContentChangeEvent {
-		let range = Range.lift(e.range);
+		let rangex = Range.lift(e.range);
 		let rangeLength = e.rangeLength;
 		let text = e.text;
 
-		return {
-			range,
-			rangeLength,
-			text,
+		let start : Position = {
+			line : rangex.startLineNumber,
+			character : rangex.startColumn
 		};
+
+		let end : Position = {
+				line : rangex.endLineNumber,
+				character : rangex.endColumn
+		}
+
+		
+			return {
+				range : {
+					start : start,
+					end : end
+				},
+				rangeLength : rangeLength,
+				text : text
+			};
+		
+
+		
 	}
 }

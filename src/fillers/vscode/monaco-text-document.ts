@@ -1,8 +1,6 @@
 import Emitter = monaco.Emitter;
 import IEvent = monaco.IEvent;
 import Uri = monaco.Uri;
-import Range = monaco.Range;
-import Position = monaco.Position;
 import IPosition = monaco.IPosition;
 
 import {
@@ -254,8 +252,6 @@ export class TextDocument {
 	getText(range?: Range): string {
 		let model = this.model;
 		let value = model.getValue();
-		let rawText = model.getValue();
-
 		return value;
 	}
 
@@ -314,6 +310,21 @@ export interface TextDocumentContentChangeEvent {
 	text: string;
 }
 
+export interface Range {
+
+		/**
+		 * The start position. It is before or equal to [end](#Range.end).
+		 */
+		readonly start: Position;
+
+		/**
+		 * The end position. It is after or equal to [start](#Range.start).
+		 */
+		readonly end: Position;
+
+		
+}
+
 /**
  * An event describing a transactional [document](#TextDocument) change.
  */
@@ -328,4 +339,19 @@ export interface TextDocumentChangeEvent {
 	 * An array of content changes.
 	 */
 	contentChanges: TextDocumentContentChangeEvent[];
+}
+
+export interface Position {
+
+		/**
+		 * The zero-based line value.
+		 */
+		line: number;
+
+		/**
+		 * The zero-based character value.
+		 */
+		character: number;
+
+		
 }
