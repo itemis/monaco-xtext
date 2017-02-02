@@ -91,14 +91,6 @@ const uIHooksDefaults: UIHooks = {
 	extra: {},
 };
 
- function withMode(callback: (module: typeof mode) => void): void {
- 	require<typeof mode>(['vs/language/mydsl/xtextMode'], callback);
- }
-
-monaco.languages.onLanguage('mydsl', () => {
- 	withMode(mode => mode.setupMode(xtextDefaults, uIHooksDefaults));
-});
-
 interface ILang extends monaco.languages.ILanguageExtensionPoint {
 	module: string;
 }
@@ -144,4 +136,12 @@ registerLanguage({
 	extensions: [ '.mydsl'],
 	aliases: [ 'Mydsl', 'mydsl' ],
 	module: './mydsl'
+});
+
+ function withMode(callback: (module: typeof mode) => void): void {
+    require<typeof mode>(['vs/language/mydsl/xtextMode'], callback);
+ }
+
+monaco.languages.onLanguage('mydsl', () => {
+ 	withMode(mode => mode.setupMode(xtextDefaults, uIHooksDefaults));
 });

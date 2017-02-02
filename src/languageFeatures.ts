@@ -1,6 +1,5 @@
 'use strict';
 
-// import {LanguageServiceDefaultsImpl} from './monaco.contribution';
 import {XtextWorker} from './xtextWorker';
 
 import * as ls from 'vscode-languageserver-types';
@@ -119,12 +118,12 @@ function fromPosition(position: Position): ls.Position {
 	return { character: position.column - 1, line: position.lineNumber - 1 };
 }
 
-// function fromRange(range: Range): ls.Range {
-// 	if (!range) {
-// 		return void 0;
-// 	}
-// 	return { start: fromPosition(range.getStartPosition()), end: fromPosition(range.getEndPosition()) };
-// }
+ function fromRange(range: Range): ls.Range {
+ 	if (!range) {
+ 		return void 0;
+ 	}
+ 	return { start: fromPosition(range.getStartPosition()), end: fromPosition(range.getEndPosition()) };
+}
 
 function toRange(range: ls.Range): Range {
 	if (!range) {

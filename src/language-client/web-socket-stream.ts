@@ -56,7 +56,7 @@ export class WebSocketStream implements StreamInfo {
 		// location.hostname
 		// "13.65.101.250"
 		let host = {
-			hostname: location.hostname,
+			hostname: 'localhost',
 			port: '4389',
 		};
 
@@ -96,7 +96,7 @@ export class WebSocketStream implements StreamInfo {
 				reject(ev);
 			};
 			ws.onmessage = (ev: MessageEvent): any => {
-				// console.info('WebSocketStream:onmessage - MessageEvent: ', ev);
+				console.info('WebSocketStream:onmessage - MessageEvent: ', ev);
 			};
 		});
 	}

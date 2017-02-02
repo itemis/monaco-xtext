@@ -19,7 +19,6 @@
             'vscode': '/out/fillers/vscode',
             'vscode-languageserver-types': '/node_modules/vscode-languageserver-types/lib/main',
 		    'vscode-jsonrpc': '/node_modules/vscode-languageclient/node_modules/vscode-jsonrpc/lib/main',
-
             'vscode-languageclient': '/node_modules/vscode-languageclient/lib/main',
             'vs/basic-languages': '/node_modules/monaco-languages/release'
 
@@ -29,17 +28,16 @@
 <script src="/node_modules/monaco-editor-core/dev/vs/loader.js"></script>
 <script src="/node_modules/monaco-editor-core/dev/vs/editor/editor.main.nls.js"></script>
 <script src="/node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
-<script src="monaco-editor-fillers.js"></script>
+<script src="/monaco-editor-fillers.js"></script>
 <script>
-    require([],function(){});
     require(['vs/language/mydsl/monaco.contribution'], function() {
+        var uri = monaco.Uri("foo.mydsl");
         var editor = monaco.editor.create(document.getElementById('container'), {
-            value: [
-                'Hello foo !',
-                'Hello Bar from foo!'
-            ].join('\n'),
-            language: 'mydsl'
+            value: 'Hello foo !',
+            language: 'mydsl',
+            uri
         });
+        
     });
 </script>
 </body>

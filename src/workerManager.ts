@@ -62,9 +62,9 @@ export class WorkerManager {
 			this._worker = monaco.editor.createWebWorker<XtextWorker>({
 
 				// module that exports the create() method and returns a `CSSWorker` instance
-				moduleId: 'vs/language/xtext/xtextWorker',
+				moduleId: 'vs/language/mydsl/xtextWorker',
 
-				label: 'xtext',
+				label: 'mydsl',
 				// label: this._defaults.languageId,
 
 				// passed in to the create() method

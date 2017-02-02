@@ -9,7 +9,7 @@ import {
 import { UIHooks } from '../monaco.contribution';
 
 export class WebSocketMessageReader implements MessageReader {
-	private _logMsgs: boolean = false;
+	private _logMsgs: boolean = true;
 
 	private _errorEmitter: Emitter<Error>;
 	private _closeEmitter: Emitter<void>;
@@ -34,13 +34,19 @@ export class WebSocketMessageReader implements MessageReader {
 			let data = ev.data ? ev.data : '';
 			// data:
 			// "Content-Length: 207\r\nContent-Type: application/vscode-jsonrpc; charset=utf8\r\n\r\n{\"id\":0,\"result\":{\"capabilities\":{\"textDocumentSync\":1,\"hoverProvider\":true,\"definitionProvider\":true,\"referencesProvider\":true,\"documentSymbolProvider\":true,\"workspaceSymbolProvider\":true}},\"jsonrpc\":\"2.0\"}"
-
-			if (!this._callback || typeof data !== 'string') {
+			var reader = new FileReader();
+			var self = this;
+			reader.onload = function() {
+				var text  = reader.result;
+				if (!self._callback || typeof text !== 'string') {
 				// noop
-			} else {
-				this.logMsg(data);
-				this.handleMessages(data);
+				} else {
+					self.logMsg(text);
+					self.handleMessages(text);
+				}
 			}
+			reader.readAsText(data);
+			
 		};
 	}
 
@@ -61,9 +67,9 @@ export class WebSocketMessageReader implements MessageReader {
 	private handleMessages(data: string) {
 		let msgs = this.splitMessages(data);
 
-		// console.info('WebSocketMessageReader:onmessage - msgs.length ', msgs.length);
+		console.info('WebSocketMessageReader:onmessage - msgs.length ', msgs.length);
 		msgs.map((data) => {
-			// this.logMsg(data);
+			this.logMsg(data);
 			this.handleJsonRpcMessage(data);
 		});
 	}
@@ -100,7 +106,9 @@ export class WebSocketMessageReader implements MessageReader {
 
 		let response: string[] = data.split(SEPARATOR, 2);
 		// let headers = response[0];
-		let json = response[1];
+		if(response[0].startsWith('Content-Length:'))
+			return;
+		let json = response[0];
 
 		let msg: Message = JSON.parse(json);
 		// let msg = JSON.parse(json);
