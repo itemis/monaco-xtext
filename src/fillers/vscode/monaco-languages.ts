@@ -26,8 +26,7 @@ import {
 	Definition, Location,
 } from 'vscode-languageserver-types';
 import {
-	TextDocument,
-	TextLine
+	TextLine, MonacoTextDocument
 } from './monaco-text-document';
 import {
 	MonacoDiagnostic, MonacoDiagnosticCollection
@@ -264,7 +263,7 @@ export class MonacoLanguages {
 	// see this file:
 	// https://github.com/Microsoft/vscode/blob/c67ef57cda90b5f28499646f7cc94e8dcc5b0586/src/vs/editor/common/modes/languageSelector.ts
 
-	match(selector: DocumentSelector, document: TextDocument): number {
+	match(selector: DocumentSelector, document: MonacoTextDocument): number {
 		if (Array.isArray(selector)) {
 			// for each
 			let values = (<DocumentSelector[]>selector).map(item => this._match(item, document));
@@ -284,7 +283,7 @@ export class MonacoLanguages {
 		return codePos;
 	}
 
-	private _match(selector: DocumentSelector, document: TextDocument): number {
+	private _match(selector: DocumentSelector, document: MonacoTextDocument): number {
 		if (typeof selector === 'string') {
 			let modeId = document.model.getModeId();
 			return modeId === selector ? 1 : 0;

@@ -8,7 +8,7 @@ import {
 	DidOpenTextDocumentParams
 } from 'vscode-languageclient';
 import {
-	TextDocumentItem
+	TextDocumentItem, TextDocument, Position, Range
 } from 'vscode-languageserver-types';
 
 // todo: need to implemennt the rest of these CanvasPathMethods. see this file,
@@ -84,7 +84,17 @@ export interface TextLine {
 	isEmptyOrWhitespace: boolean;
 }
 
-export class TextDocument {
+export class MonacoRange implements Range {
+	public start : Position
+	public end : Position
+
+	constructor(start: Position, end: Position) {
+		this.start = start;
+		this.end = end;
+	}
+}
+
+export class MonacoTextDocument implements TextDocument  {
 	public model: monaco.editor.IModel;
 
 	constructor(model: monaco.editor.IModel) {
@@ -98,8 +108,8 @@ export class TextDocument {
 	 *
 	 * @readonly
 	 */
-	get uri(): Uri {
-		return this.model.uri;
+	get uri(): string {
+		return this.model.uri.toString();
 	}
 
 	/**
@@ -293,65 +303,35 @@ export class TextDocument {
 }
 
 /**
- * An event describing an individual change in the text of a [document](#TextDocument).
- */
-export interface TextDocumentContentChangeEvent {
-	/**
-	 * The range that got replaced.
+	 * An event describing an individual change in the text of a [document](#TextDocument).
 	 */
-	range: Range;
-	/**
-	 * The length of the range that got replaced.
-	 */
-	rangeLength: number;
-	/**
-	 * The new text for the range.
-	 */
-	text: string;
-}
+	export interface TextDocumentContentChangeEvent {
+		/**
+		 * The range that got replaced.
+		 */
+		range: Range;
+		/**
+		 * The length of the range that got replaced.
+		 */
+		rangeLength: number;
+		/**
+		 * The new text for the range.
+		 */
+		text: string;
+	}
 
-export interface Range {
+	/**
+	 * An event describing a transactional [document](#TextDocument) change.
+	 */
+	export interface TextDocumentChangeEvent {
 
 		/**
-		 * The start position. It is before or equal to [end](#Range.end).
+		 * The affected document.
 		 */
-		readonly start: Position;
+		document: TextDocument;
 
 		/**
-		 * The end position. It is after or equal to [start](#Range.start).
+		 * An array of content changes.
 		 */
-		readonly end: Position;
-
-		
-}
-
-/**
- * An event describing a transactional [document](#TextDocument) change.
- */
-export interface TextDocumentChangeEvent {
-
-	/**
-	 * The affected document.
-	 */
-	document: TextDocument;
-
-	/**
-	 * An array of content changes.
-	 */
-	contentChanges: TextDocumentContentChangeEvent[];
-}
-
-export interface Position {
-
-		/**
-		 * The zero-based line value.
-		 */
-		line: number;
-
-		/**
-		 * The zero-based character value.
-		 */
-		character: number;
-
-		
-}
+		contentChanges: TextDocumentContentChangeEvent[];
+	}

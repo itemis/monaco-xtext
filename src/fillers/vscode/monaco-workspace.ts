@@ -1,7 +1,6 @@
 import Emitter = monaco.Emitter;
 import IEvent = monaco.IEvent;
 import Uri = monaco.Uri;
-import Range = monaco.Range;
 import IRange = monaco.IRange;
 import * as _ from 'lodash';
 
@@ -10,12 +9,12 @@ import {
 	DidOpenTextDocumentParams,
 } from 'vscode-languageclient';
 import {
-	TextDocumentItem,
+	TextDocumentItem, Position, TextDocument, Range
 } from 'vscode-languageserver-types';
 
 import {
-	TextDocument, TextLine, Position,
-	TextDocumentContentChangeEvent, TextDocumentChangeEvent,
+	TextLine,
+	TextDocumentContentChangeEvent, TextDocumentChangeEvent,MonacoTextDocument, MonacoRange
 } from './monaco-text-document';
 import * as vscodeToMonaco from './vscode-to-monaco-utils';
 
@@ -149,7 +148,7 @@ export class MonacoWorkspace {
 	}
 
 	private _onModelAdd(model: monaco.editor.IModel): void {
-		let textDocument = new TextDocument(model);
+		let textDocument = new MonacoTextDocument(model);
 
 		this._textDocuments.push(textDocument);
 		this._onDidOpenTextDocument.fire(textDocument);
@@ -171,7 +170,7 @@ export class MonacoWorkspace {
 	}
 
 	private _onModelRemove(model: monaco.editor.IModel): void {
-		let textDocument = new TextDocument(model);
+		let textDocument = new MonacoTextDocument(model);
 		this._onDidCloseTextDocument.fire(textDocument);
 	}
 
@@ -186,7 +185,7 @@ export class MonacoWorkspace {
 	}
 
 	private _toTextDocumentContentChangeEvent(e: monaco.editor.IModelContentChangedEvent2): TextDocumentContentChangeEvent {
-		let rangex = Range.lift(e.range);
+		let rangex = monaco.Range.lift(e.range);
 		let rangeLength = e.rangeLength;
 		let text = e.text;
 
@@ -202,10 +201,7 @@ export class MonacoWorkspace {
 
 		
 			return {
-				range : {
-					start : start,
-					end : end
-				},
+				range : new MonacoRange(start, end),
 				rangeLength : rangeLength,
 				text : text
 			};
