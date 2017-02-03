@@ -30,12 +30,16 @@
 <script src="/node_modules/monaco-editor-core/dev/vs/editor/editor.main.js"></script>
 <script src="/monaco-editor-fillers.js"></script>
 <script>
-    require(['vs/language/mydsl/monaco.contribution'], function() {
-        var uri = monaco.Uri("foo.mydsl");
+    require(['vs/language/mydsl/monaco.contribution'], function(vscode) {
+        let path = vscode.workspace.rootPath + "/foo.mydsl"
+        console.log(path);
+        var uri = monaco.Uri.file(path);
+        console.log(uri)
+        console.log(uri.toString())
+        let model = monaco.editor.createModel('Hello foo !', "mydsl", uri);
+        console.log(model);
         var editor = monaco.editor.create(document.getElementById('container'), {
-            value: 'Hello foo !',
-            language: 'mydsl',
-            uri
+            model: model
         });
         
     });

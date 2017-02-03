@@ -4,6 +4,11 @@ import * as mode from './xtextMode';
 import Emitter = monaco.Emitter;
 import IEvent = monaco.IEvent;
 
+import {MonacoWorkspace} from './fillers/vscode/monaco-workspace'
+let workspace = MonacoWorkspace.create();
+export { workspace };
+
+
 
 declare var require: <T>(moduleId: [string], callback: (module: T) => void) => void;
 

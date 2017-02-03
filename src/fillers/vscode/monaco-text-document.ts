@@ -109,6 +109,7 @@ export class MonacoTextDocument implements TextDocument  {
 	 * @readonly
 	 */
 	get uri(): string {
+		console.log(this.model.uri);
 		return this.model.uri.toString();
 	}
 
