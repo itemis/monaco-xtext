@@ -19,7 +19,7 @@ import {
 } from './vscode/monaco-languages';
 import { MonacoWorkspace } from './vscode/monaco-workspace';
 import {
-	TextDocument,
+	MonacoTextDocument,
 	TextLine,
 } from './vscode/monaco-text-document';
 import { MonacoOutputChannel } from './vscode/monaco-output-channel';
@@ -42,7 +42,7 @@ export {
 	Hover,
 };
 export { MonacoWorkspace };
-export { TextDocument, TextLine };
+export { MonacoTextDocument, TextLine };
 export { MonacoOutputChannel };
 export {
 	Position,

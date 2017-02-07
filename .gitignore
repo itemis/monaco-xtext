@@ -1,3 +1,5 @@
+submodules
 bower_components
 out
+release
 node_modules

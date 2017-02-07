@@ -64,7 +64,7 @@ export class MonacoWorkspaceConfig {
 }
 
 export class MonacoWorkspace {
-	public static ROOT_PATH: string = '/Users/dietrich/git/xtext-languageserver-example/demo';
+	public static ROOT_PATH: string = '/Users/schill/dev/itemisrepos/xtext-languageserver-example/demo';
 
 	private _workspaceConfigs: MonacoWorkspaceConfig[];
 	private _textDocuments: TextDocument[] = [];
