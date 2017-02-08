@@ -11,6 +11,7 @@ import Thenable = monaco.Thenable;
 import Promise = monaco.Promise;
 import CancellationToken = monaco.CancellationToken;
 import IDisposable = monaco.IDisposable;
+import {LanguageClient} from "vscode-languageclient";
 
 
 export interface WorkerAccessor {
@@ -118,11 +119,11 @@ function fromPosition(position: Position): ls.Position {
 	return { character: position.column - 1, line: position.lineNumber - 1 };
 }
 
- function fromRange(range: Range): ls.Range {
- 	if (!range) {
- 		return void 0;
- 	}
- 	return { start: fromPosition(range.getStartPosition()), end: fromPosition(range.getEndPosition()) };
+function fromRange(range: Range): ls.Range {
+	if (!range) {
+		return void 0;
+	}
+	return { start: fromPosition(range.getStartPosition()), end: fromPosition(range.getEndPosition()) };
 }
 
 function toRange(range: ls.Range): Range {
@@ -170,7 +171,9 @@ function toTextEdit(textEdit: ls.TextEdit): monaco.editor.ISingleEditOperation {
 
 export class CompletionAdapter implements monaco.languages.CompletionItemProvider {
 
-	constructor(private _worker: WorkerAccessor) {
+	client : LanguageClient
+	constructor(private _worker: WorkerAccessor, _client: LanguageClient) {
+		this.client = _client;
 	}
 
 	public get triggerCharacters(): string[] {
@@ -181,8 +184,8 @@ export class CompletionAdapter implements monaco.languages.CompletionItemProvide
 		// const wordInfo = model.getWordUntilPosition(position);
 		const resource = model.uri;
 
-		return wireCancellationToken(token, this._worker(resource).then(worker => {
-			return worker.doComplete(resource.toString(), fromPosition(position));
+		return wireCancellationToken(token, this._worker(resource, ).then(worker => {
+			return worker.doComplete(this.client, resource.toString(), fromPosition(position));
 		}).then(info => {
 			if (!info) {
 				return;

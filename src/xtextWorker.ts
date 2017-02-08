@@ -9,6 +9,18 @@ import IWorkerContext = monaco.worker.IWorkerContext;
 
 import * as ls from 'vscode-languageserver-types';
 import * as lc from 'vscode-languageclient';
+import {LanguageClient} from "vscode-languageclient";
+import {TextDocumentIdentifier} from "vscode-languageserver-types";
+
+import Thenable = monaco.Thenable;
+import {
+	CompletionList,
+	CompletionItem
+} from "vscode-languageserver-types";
+
+
+
+
 
 export class XtextWorker {
 
@@ -29,11 +41,23 @@ export class XtextWorker {
 
 		});
 	}
-	doComplete(uri: string, position: ls.Position): Promise<ls.CompletionList> {
-		return new Promise((resolve, reject) => {
+	doComplete(client: LanguageClient, uri: string, position: ls.Position): Promise<ls.CompletionList> {
 
+		return new Promise((resolve, reject) => {
+			//resolve
+			//let identifier = TextDocumentIdentifier.create(uri);
+			//var param : TextDocumentPositionParams = {
+			//	textDocument : identifier,
+			//	position: position};
+
+			//return client.sendRequest(CompletionRequest.type, param).then((list) => { resolve(asCompletionList(list))});
 		});
+
 	}
+
+
+
+
 	doHover(uri: string, position: ls.Position): Promise<ls.Hover> {
 		return new Promise((resolve, reject) => {
 
@@ -113,4 +137,38 @@ export interface ICreateData {
 
 export function create(ctx: IWorkerContext, createData: ICreateData): XtextWorker {
 	return new XtextWorker(ctx, createData);
+}
+
+function asRange(range) {
+	return range!= null ? null : {
+			startLineNumber: range.start.line + 1,
+			startColumn: range.start.character + 1,
+			endLineNumber: range.end.line + 1,
+			endColumn: range.end.character + 1
+		}
+}
+
+function asTextEdit(textEdit) {
+	return textEdit != null ? null : {
+			range: asRange(textEdit.range),
+			text: textEdit.newText
+		}
+}
+
+function asCompletionItem(completionItem) {
+	return {
+		label: completionItem.label,
+		detail: completionItem.detail,
+		documentation: completionItem.documentation,
+		filterText: completionItem.filterText,
+		insertText: completionItem.insertText,
+		kind: completionItem.kind - 1,
+		sortText: completionItem.sortText,
+		textEdit: asTextEdit(completionItem.textEdit),
+		data: completionItem.data
+	}
+}
+
+function asCompletionList(completionList) {
+	return {isIncomplete: completionList.isIncomplete, items: completionList.items.map(asCompletionItem)}
 }
