@@ -88,23 +88,16 @@ export class MonacoLanguageClient extends LanguageClient {
 		return {
 			code2Protocol(uri: Uri): string {
 				let value = uri.toString();
-				if (value.startsWith(SCHEME_PREFIX_HTTP)) {
-					let uri = value.replace(SCHEME_PREFIX_HTTP, SCHEME_PREFIX_FILE);
-					return uri;
-				} else {
+
 					return value;
-				}
+
 			},
 			protocol2Code(value: string): Uri {
 				// not ideal: replace the file:// scheme that is returned by
 				// the langserver to http:// for monaco to load model
-				if (value.startsWith(SCHEME_PREFIX_FILE)) {
-					let noPrefix = value.replace(SCHEME_PREFIX_FILE, SCHEME_PREFIX_HTTP);
-					let uri = Uri.parse(noPrefix);
-					return uri;
-				} else {
+
 					return Uri.parse(value);
-				}
+
 			}
 		};
 	}

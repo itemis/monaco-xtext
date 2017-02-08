@@ -190,13 +190,13 @@ export class MonacoWorkspace {
 		let text = e.text;
 
 		let start : Position = {
-			line : rangex.startLineNumber,
-			character : rangex.startColumn
+			line : rangex.startLineNumber - 1,
+			character : rangex.startColumn - 1
 		};
 
 		let end : Position = {
-				line : rangex.endLineNumber,
-				character : rangex.endColumn
+				line : rangex.endLineNumber - 1,
+				character : rangex.endColumn - 1
 		}
 
 		
