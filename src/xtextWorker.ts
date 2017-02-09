@@ -17,6 +17,10 @@ import {
 	CompletionList,
 	CompletionItem
 } from "vscode-languageserver-types";
+import {
+	TextDocumentPositionParams,
+	CompletionRequest
+} from "protocol";
 
 
 
@@ -44,13 +48,12 @@ export class XtextWorker {
 	doComplete(client: LanguageClient, uri: string, position: ls.Position): Promise<ls.CompletionList> {
 
 		return new Promise((resolve, reject) => {
-			//resolve
-			//let identifier = TextDocumentIdentifier.create(uri);
-			//var param : TextDocumentPositionParams = {
-			//	textDocument : identifier,
-			//	position: position};
+			let identifier = TextDocumentIdentifier.create(uri);
+			var param : TextDocumentPositionParams = {
+				textDocument : identifier,
+				position: position};
 
-			//return client.sendRequest(CompletionRequest.type, param).then((list) => { resolve(asCompletionList(list))});
+			return client.sendRequest(CompletionRequest.type, param).then((list) => { resolve(asCompletionList(list))});
 		});
 
 	}
