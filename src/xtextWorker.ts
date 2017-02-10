@@ -20,7 +20,7 @@ import {
 import {
 	TextDocumentPositionParams,
 	CompletionRequest
-} from "protocol";
+} from "./protocol";
 
 
 

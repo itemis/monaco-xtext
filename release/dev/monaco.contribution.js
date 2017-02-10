@@ -1,13 +1,14 @@
 /*!-----------------------------------------------------------------------------
  * Copyright (c) Microsoft Corporation. All rights reserved.
- * monaco-go version: 0.0.1(10663473bffdcd65c6b3b4156f547e1be27124b1)
+ * monaco-go version: 0.0.1(ce2c611b33f00a26197f84429c9eb436d581d849)
  * Released under the MIT license
  * https://github.com/mbana/monaco-go/blob/master/LICENSE.md
  *-----------------------------------------------------------------------------*/
-
-define('vs/language/xtext/monaco.contribution',["require", "exports"], function (require, exports) {
-    
+define('vs/language/xtext/monaco.contribution',["require", "exports", "./fillers/vscode/monaco-workspace"], function (require, exports, monaco_workspace_1) {
+    'use strict';
     var Emitter = monaco.Emitter;
+    var workspace = monaco_workspace_1.MonacoWorkspace.create();
+    exports.workspace = workspace;
     // Allow for running under nodejs/requirejs in tests
     var _monaco = (typeof monaco === 'undefined' ? self.monaco : monaco);
     // --- CSS configuration and defaults ---------
@@ -83,12 +84,6 @@ define('vs/language/xtext/monaco.contribution',["require", "exports"], function 
         },
         extra: {},
     };
-    function withMode(callback) {
-        require(['vs/language/mydsl/xtextMode'], callback);
-    }
-    monaco.languages.onLanguage('mydsl', function () {
-        withMode(function (mode) { return mode.setupMode(exports.xtextDefaults, uIHooksDefaults); });
-    });
     var languageDefinitions = {};
     function _loadLanguage(languageId) {
         var module = languageDefinitions[languageId].module;
@@ -122,4 +117,11 @@ define('vs/language/xtext/monaco.contribution',["require", "exports"], function 
         aliases: ['Mydsl', 'mydsl'],
         module: './mydsl'
     });
+    function withMode(callback) {
+        require(['vs/language/mydsl/xtextMode'], callback);
+    }
+    monaco.languages.onLanguage('mydsl', function () {
+        withMode(function (mode) { return mode.setupMode(exports.xtextDefaults, uIHooksDefaults); });
+    });
 });
+
