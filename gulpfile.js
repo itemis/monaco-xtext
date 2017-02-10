@@ -43,7 +43,6 @@ gulp.task('release', ['clean-release', 'compile'], function () {
 
     function bundleOne(moduleId, exclude) {
 
-        console.log(__dirname);
         return rjs({
             baseUrl: '/out/',
             name: 'vs/language/xtext/' + moduleId,
@@ -127,7 +126,7 @@ gulp.task('clean-out', function (cb) { rimraf('out', { maxBusyTries: 1 }, cb); }
 gulp.task('compile', ['clean-out'], compileTask);
 gulp.task('compile-without-clean', compileTask);
 gulp.task('watch', ['compile'], function () {
-    gulp.watch(tsProject.src() + '/**/*.ts', ['compile-without-clean']);
+    gulp.watch('src/**/*.ts', ['compile-without-clean']);
 });
 
 
