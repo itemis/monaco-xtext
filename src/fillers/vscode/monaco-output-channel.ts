@@ -10,7 +10,7 @@ export class MonacoOutputChannel {
 	appendLine(value) {
 		let message = `LanguageClient:${this._name} - `;
 		if (!this._hide) {
-			console.info(message, value);
+			//console.info(message, value);
 		}
 
 		return {

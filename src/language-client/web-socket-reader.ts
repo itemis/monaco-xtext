@@ -41,7 +41,7 @@ export class WebSocketMessageReader implements MessageReader {
 				if (!self._callback || typeof text !== 'string') {
 				// noop
 				} else {
-					self.logMsg(text);
+					//self.logMsg(text);
 					self.handleMessages(text);
 				}
 			}
@@ -69,7 +69,7 @@ export class WebSocketMessageReader implements MessageReader {
 
 		console.info('WebSocketMessageReader:onmessage - msgs.length ', msgs.length);
 		msgs.map((data) => {
-			this.logMsg(data);
+			//this.logMsg(data);
 			this.handleJsonRpcMessage(data);
 		});
 	}

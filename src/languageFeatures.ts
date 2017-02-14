@@ -1,6 +1,5 @@
 'use strict';
 
-
 import * as ls from 'vscode-languageserver-types';
 
 import Uri = monaco.Uri;
@@ -95,7 +94,8 @@ function toTextEdit(textEdit: ls.TextEdit): monaco.editor.ISingleEditOperation {
 
 export class CompletionAdapter implements monaco.languages.CompletionItemProvider {
 
-    constructor(private client: LanguageClient) {}
+    constructor(private client: LanguageClient) {
+    }
 
     public get triggerCharacters(): string[] {
         return [];
@@ -107,8 +107,8 @@ export class CompletionAdapter implements monaco.languages.CompletionItemProvide
         const uri = resource.toString()
 
         return new Promise((resolve, reject) => {
-            this.client.sendRequest(CompletionRequest.type, toTextDocumentPositionParam(uri,position)).then((list) => {
-                if(!list){
+            this.client.sendRequest(CompletionRequest.type, toTextDocumentPositionParam(uri, position)).then((list) => {
+                if (!list) {
                     return;
                 }
                 resolve(asCompletionList(list))
@@ -118,7 +118,7 @@ export class CompletionAdapter implements monaco.languages.CompletionItemProvide
     }
 
 }
-function toTextDocumentPositionParam(uri : string, position: Position){
+function toTextDocumentPositionParam(uri: string, position: Position) {
     let identifier = TextDocumentIdentifier.create(uri);
     let lsPosition = fromPosition(position)
     var param: TextDocumentPositionParams = {
@@ -149,27 +149,16 @@ export class HoverAdapter implements monaco.languages.HoverProvider {
     provideHover(model: monaco.editor.IReadOnlyModel, position: Position, token: CancellationToken): Thenable<monaco.languages.Hover> {
         let resource = model.uri;
 
-        // return wireCancellationToken(token, this._worker(resource).then(worker => {
-        // 	return worker.doHover(resource.toString(), fromPosition(position));
-        // }).then(info => {
-        // 	if (!info) {
-        // 		return;
-        // 	}
-        // 	return <monaco.languages.Hover>{
-        // 		range: toRange(info.range),
-        // 		contents: toMarkedStringArray(info.contents)
-        // 	};
-        // }));
         const uri = resource.toString()
         return new Promise((resolve, reject) => {
-            this.client.sendRequest(HoverRequest.type, toTextDocumentPositionParam(uri,position)).then((result) => {
-                if(!result){
+            this.client.sendRequest(HoverRequest.type, toTextDocumentPositionParam(uri, position)).then((result) => {
+                if (!result) {
                     return;
                 }
-                	var hover: Hover= {
-                		range: toRange(result.range),
-                		contents: toMarkedStringArray(result.contents)
-                	};
+                var hover: Hover = {
+                    range: toRange(result.range),
+                    contents: toMarkedStringArray(result.contents)
+                };
                 resolve(hover)
             });
         });
@@ -212,6 +201,7 @@ export class DocumentHighlightAdapter implements monaco.languages.DocumentHighli
         // 		};
         // 	});
         // }));
+
         return new Promise((resolve, reject) => {
         });
     }

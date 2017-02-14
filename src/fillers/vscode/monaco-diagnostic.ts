@@ -98,7 +98,7 @@ export class MonacoDiagnosticCollection {
 	 * @param diagnostics Array of diagnostics or `undefined`
 	 */
 	set(uri: Uri, diagnostics: Diagnostic[] | undefined): void {
-		console.log('MonacoDiagnosticCollection: ', uri, diagnostics);
+		//console.log('MonacoDiagnosticCollection: ', uri, diagnostics);
 
 		let key = uri.toString();
 		if (_.has(this._store, key)) {
@@ -207,10 +207,10 @@ export class MonacoDiagnosticCollection {
 		let model = monaco.editor.getModel(uri);
 		if (!model) {
 			let models = monaco.editor.getModels();
-			console.log('setModelMarkers - uri: ', uri.toString());
-			console.log('setModelMarkers - uri: ', uri);
-			console.log('setModelMarkers - diagnostics: ', diagnostics);
-			console.log('setModelMarkers - models: ', models);
+			// console.log('setModelMarkers - uri: ', uri.toString());
+			// console.log('setModelMarkers - uri: ', uri);
+			// console.log('setModelMarkers - diagnostics: ', diagnostics);
+			// console.log('setModelMarkers - models: ', models);
 			return;
 		}
 
