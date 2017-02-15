@@ -9,7 +9,6 @@
     "url": "https://github.com/itemis/monaco-xtext"
   },
   "dependencies": {
-    "child_process": "^1.0.2",
     "copy-webpack-plugin": "^4.0.1",
     "monaco-editor-core": "^0.8.1",
     "source-map-loader": "^0.1.6",
@@ -17,7 +16,8 @@
     "typescript": "^2.2.0",
     "vscode": "^1.0.3",
     "vscode-languageclient": "^3.0.4",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "child_process":false
   },
   "engines": {
     "vscode": "^1.0.3"
