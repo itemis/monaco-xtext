@@ -16,8 +16,7 @@
     "typescript": "^2.2.0",
     "vscode": "^1.0.3",
     "vscode-languageclient": "^3.0.4",
-    "webpack": "^2.2.1",
-    "child_process":false
+    "webpack": "^2.2.1"
   },
   "engines": {
     "vscode": "^1.0.3"
