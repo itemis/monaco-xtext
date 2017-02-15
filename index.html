@@ -14,13 +14,7 @@ index.html<!DOCTYPE html>
 <script type="text/javascript" charset="utf-8">
     window.require.config({ paths: { 'vs': 'dist/vs' }});
     	require(['vs/editor/editor.main'], function() {
-    	    var path = "/Users/schill/dev/itemisrepos/xtext-languageserver-example/demo/foo.mydsl";
-            var uri = monaco.Uri.file(path);
-            var model = monaco.editor.createModel('Hello foo !', "mydsl", uri);
-            var editor = monaco.editor.create(document.getElementById('container'), {
-                model: model
-            });
-            this.init(editor)
+
     });
 </script>
 
