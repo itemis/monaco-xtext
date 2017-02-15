@@ -12,7 +12,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "monaco-editor-core": "^0.8.1",
     "ts-loader": "^2.0.0",
-    "typescript": "^2.1.6",
+    "typescript": "^2.2.0",
     "vscode": "^1.0.3",
     "vscode-languageclient": "^3.0.4",
     "webpack": "^2.2.1"
