@@ -36,7 +36,7 @@ module.exports = {
     plugins: [
         new CopyWebpackPlugin([
             // Copy directory contents to {output}/to/directory/
-            { from: 'node_modules/monaco-editor-core/min/vs', to: 'vs' },
+            { from: 'node_modules/monaco-editor-core/dev/vs', to: 'vs' },
         ], {
             // By default, we only copy modified files during
             // a watch or webpack-dev-server build. Setting this

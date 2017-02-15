@@ -1,6 +1,5 @@
 'use strict'
 
-import languageClient = require('vscode-languageclient')
 
 declare var require: {
     <T>(path: string): T;
@@ -17,6 +16,7 @@ window.onload = function(){
     var editor = monaco.editor.create(document.getElementById('container'), {
         model: model
     });
+
 }
 
 interface ILang extends monaco.languages.ILanguageExtensionPoint {
@@ -31,6 +31,7 @@ interface ILangImpl {
 let languageDefinitions:{[languageId:string]:ILang} = {};
 
 function _loadLanguage(languageId:string): monaco.Promise<void> {
+
     let module = languageDefinitions[languageId].module;
     return new _monaco.Promise<void>((c, e, p) => {
         require2<ILangImpl>([module], (mod) => {
