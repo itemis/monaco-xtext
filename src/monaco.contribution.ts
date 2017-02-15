@@ -1,5 +1,7 @@
 'use strict'
 
+import {LanguageClient} from "vscode-languageclient"
+import {} from "vscode"
 
 declare var require: {
     <T>(path: string): T;
@@ -8,7 +10,7 @@ declare var require: {
 };
 declare var require2: <T>(moduleId: [string], callback: (module: T) => void) => void;
 
-var _monaco: typeof monaco = (typeof monaco === 'undefined' ? (<any>self).monaco : monaco);
+
 window.onload = function(){
     var path = "/Users/schill/dev/itemisrepos/xtext-languageserver-example/demo/foo.mydsl";
     var uri = monaco.Uri.file(path);
@@ -31,15 +33,16 @@ interface ILangImpl {
 let languageDefinitions:{[languageId:string]:ILang} = {};
 
 function _loadLanguage(languageId:string): monaco.Promise<void> {
-
+    LanguageClient
     let module = languageDefinitions[languageId].module;
-    return new _monaco.Promise<void>((c, e, p) => {
+    return new monaco.Promise<void>((c, e, p) => {
         require2<ILangImpl>([module], (mod) => {
-            _monaco.languages.setMonarchTokensProvider(languageId, mod.language);
-            _monaco.languages.setLanguageConfiguration(languageId, mod.conf);
+            monaco.languages.setMonarchTokensProvider(languageId, mod.language);
+            monaco.languages.setLanguageConfiguration(languageId, mod.conf);
             c(void 0);
         });
     });
+
 }
 
 let languagePromises:{[languageId:string]: monaco.Promise<void>} = {};
@@ -55,8 +58,8 @@ function registerLanguage(def:ILang): void {
     let languageId = def.id;
 
     languageDefinitions[languageId] = def;
-    _monaco.languages.register(def);
-    _monaco.languages.onLanguage(languageId, () => {
+    monaco.languages.register(def);
+    monaco.languages.onLanguage(languageId, () => {
         loadLanguage(languageId);
     });
 }
