@@ -1,0 +1,20 @@
+{
+  "name": "monaco-xtext",
+  "version": "0.0.1",
+  "description": "Xtext for Monaco",
+  "author": "Itemis AG",
+  "license": "EPL-1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itemis/monaco-xtext"
+  },
+  "dependencies": {
+    "copy-webpack-plugin": "^4.0.1",
+    "monaco-editor-core": "^0.8.1",
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.6",
+    "vscode": "^1.0.3",
+    "vscode-languageclient": "^3.0.4",
+    "webpack": "^2.2.1"
+  }
+}
