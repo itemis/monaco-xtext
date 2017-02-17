@@ -7,8 +7,12 @@ module.exports = {
         filename: '/bundle.js',
         path: path.resolve(__dirname, 'dist')
     },
+    node:
+        {
+            "child_process": "empty",
+            "net": "empty"
+        },
     module: {
-
         rules: [
             {
                 enforce: 'pre',

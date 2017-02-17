@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "copy-webpack-plugin": "^4.0.1",
+    "json-rpc": "^0.3.0",
+    "jsonrpc": "^0.1.1",
     "monaco-editor-core": "^0.8.1",
+    "path": "^0.12.7",
     "source-map-loader": "^0.1.6",
     "ts-loader": "^2.0.0",
     "typescript": "^2.2.0",
@@ -19,9 +22,13 @@
     "webpack": "^2.2.1"
   },
   "engines": {
-    "vscode": "^1.0.3"
+    "vscode": "^1.8.0"
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install"
+  },
+  "devDependencies": {
+    "vscode": "^1.0.3",
+    "@types/node": "^7.0.5"
   }
 }
